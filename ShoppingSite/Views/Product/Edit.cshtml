@@ -1,0 +1,51 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "ویرایش محصول";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" class="form-control" hidden disabled />
+            <input asp-for="PictureName" class="form-control" />
+            <input asp-for="PictureFullAddress" class="form-control" hidden disabled />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Discount" class="control-label"></label>
+                <input asp-for="Discount" class="form-control" />
+                <span asp-validation-for="Discount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <img src="~/img/products/@Model.PictureName" alt="تصویری یافت نشد" width="200" height="80" class="img-responsive" style="margin: auto;" />
+            <div class="form-group">
+                <label asp-for="Picture"></label>
+                <input asp-for="Picture" class="form-control" type="file" />
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ثبت" class="btn btn-primary" />
+            </div>
+        </form>
+        <a asp-controller="Product" asp-action="Index" asp-route-Id="@Model.Id" class="btn btn-primary">برگشت به جزئیات</a>
+    </div>
+</div>
+
+<div>
+    <a asp-action="List">Back to List</a>
+</div>
+

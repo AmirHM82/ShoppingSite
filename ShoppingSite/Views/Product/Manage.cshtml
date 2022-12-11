@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ProductViewModel>
+
+@{
+    ViewData["Title"] = "محصولات";
+}
+
+@if (Model.Any())
+{
+    <a class="btn btn-primary mb-3" style="width: auto" asp-action="Add" asp-controller="Product">افزودن محصول</a>
+
+    foreach (var product in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                آیدی محصول : @product.Id
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@product.Title</h5>
+            </div>
+            <form asp-controller="Product" asp-action="Delete" asp-route-Id="@product.Id" asp-route-Page="1" method="get" class="card-footer">
+                <a asp-controller="Product" asp-action="Edit" asp-route-Id="@product.Id" class="btn btn-primary">ویرایش</a>
+
+                <span id="confirmDeleteSpan_@product.Id" style="display: none">
+                    <span>از حذف کردن این مورد اطمینان دارید؟</span>
+                    <input type="submit" value="بله" class="btn btn-danger" />
+                    <a href="#" onclick="confirmDelete('@product.Id', false)" class="btn btn-primary">خیر</a>
+                </span>
+
+                <span id="deleteSpan_@product.Id">
+                    <a href="#" onclick="confirmDelete('@product.Id', true)" class="btn btn-danger">حذف</a>
+                </span>
+            </form>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            هیچ محصولی پیدا نشد
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary" style="width: auto" asp-controller="Product" asp-action="Add">ساخت محصول</a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

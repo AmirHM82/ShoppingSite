@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "یافت نشد";
+}
+
+@if (ViewBag.ErrorTitle == null)
+{
+    <h1 class="text-danger">404.</h1>
+    <h2 class="text-danger">صفحه مورد نظر یافت نشد.</h2>
+}
+else 
+{
+    <h1 class="text-danger">@ViewBag.ErrorTitle</h1>
+    <h6 class="text-danger">@ViewBag.ErrorMessage</h6>
+}

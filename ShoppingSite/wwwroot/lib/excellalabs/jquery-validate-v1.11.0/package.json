@@ -1,0 +1,19 @@
+{
+  "name": "@excellalabs/jquery-validate-v1.11.0",
+  "version": "1.0.0",
+  "description": "NPM-ified version of JQuery Validate v1.11.0.",
+  "main": "jquery.unobtrusive-ajax.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/excellalabs/jquery-validate-v1.11.0.git"
+  },
+  "author": "Excella Labs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/excellalabs/jquery-validate-v1.11.0/issues"
+  },
+  "homepage": "https://github.com/excellalabs/jquery-validate-v1.11.0#readme"
+}

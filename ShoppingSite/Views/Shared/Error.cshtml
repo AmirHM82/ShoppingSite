@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "خطا";
+}
+
+@if (ViewBag.ErrorTitle == null)
+{
+    <h1 class="text-danger">خطا.</h1>
+    <h2 class="text-danger">مشکلی هنگام انجام درخواست شما به وجود آمد.</h2>
+}
+else 
+{
+    <h1 class="text-danger">@ViewBag.ErrorTitle</h1>
+    <h6 class="text-danger">@ViewBag.ErrorMessage</h6>
+}

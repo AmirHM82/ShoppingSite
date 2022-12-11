@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ProductViewModel>
+
+@{
+    ViewData["Title"] = "محصولات";
+}
+
+@if (Model.Any())
+{
+    foreach (var product in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                آیدی محصول : @product.Id
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@product.Title</h5>
+            </div>
+                <a asp-controller="Product" asp-action="Index" asp-route-Id="@product.Id" class="btn btn-primary">جزئیات</a>
+                <a asp-controller="Product" asp-action="AddCart" asp-route-Id="@product.Id" class="btn btn-primary">افزودن به سبد خرید</a>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            هیچ محصولی پیدا نشد
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary" style="width: auto" asp-controller="Home" asp-action="Index">برگشت به صفحه اصلی</a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

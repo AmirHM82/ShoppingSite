@@ -1,0 +1,51 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "نقش ها";
+}
+
+@if (Model.Any())
+{
+    <a class="btn btn-primary mb-3" style="width: auto" asp-action="Create" asp-controller="Role">افزودن نقش جدید</a>
+
+    foreach (var role in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                آیدی نقش : @role.Id
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@role.Name</h5>
+            </div>
+            <form asp-controller="Role" asp-action="Delete" asp-route-Id="@role.Id" method="post" class="card-footer">
+                <a asp-controller="Role" asp-action="Edit" asp-route-Id="@role.Id" class="btn btn-primary">ویرایش</a>
+                <a asp-controller="Role" asp-action="Claims" asp-route-Id="@role.Id" class="btn btn-primary">ویرایش دسترسی ها</a>
+
+                <span id="confirmDeleteSpan_@role.Id" style="display: none">
+                    <span>از حذف کردن این مورد اطمینان دارید؟</span>
+                    <button type="submit" class="btn btn-danger">بله</button>
+                    <a href="#" onclick="confirmDelete('@role.Id', false)" class="btn btn-primary">خیر</a>
+                </span>
+
+                <span id="deleteSpan_@role.Id">
+                    <a href="#" onclick="confirmDelete('@role.Id', true)" class="btn btn-danger">حذف</a>
+                </span>
+            </form>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            هیچ نقشی پیدا نشد
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary" style="width: auto" asp-controller="Role" asp-action="Create">ساخت نقش</a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

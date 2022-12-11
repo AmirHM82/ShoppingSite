@@ -1,0 +1,39 @@
+﻿@model UserSearchResultViewModel
+
+@{
+    ViewData["Title"] = "جستجوی کاربر";
+}
+
+<h1>جستجوی کاربر</h1>
+<form asp-action="Search" asp-controller="Account" method="get" class="mb-3">
+    <input type="text" asp-for="Query" />
+    <input type="submit" value="جستجو" />
+</form>
+
+@if (Model is not null)
+    @foreach (var user in Model.Users)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                نام کاربر : @user.UserName
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">موبایل : @user.PhoneNumber</h5>
+                <h6 class="card-subtitle">ایمیل : @user.Email</h6>
+            </div>
+            <form asp-controller="Account" asp-action="Delete" asp-route-userId="@user.Id" method="post" class="card-footer">
+                <a asp-controller="Account" asp-action="Edit" asp-route-userId="@user.Id" class="btn btn-primary">ویرایش</a>
+                <a asp-controller="Account" asp-action="EditRoles" asp-route-userId="@user.Id" class="btn btn-primary">ویرایش نقش ها</a>
+
+                <span id="confirmDeleteSpan_@user.Id" style="display: none">
+                    <span>از حذف کردن این مورد اطمینان دارید؟</span>
+                    <button type="submit" class="btn btn-danger">بله</button>
+                    <a href="#" onclick="confirmDelete('@user.Id', false)" class="btn btn-primary">خیر</a>
+                </span>
+
+                <span id="deleteSpan_@user.Id">
+                    <a href="#" onclick="confirmDelete('@user.Id', true)" class="btn btn-danger">حذف</a>
+                </span>
+            </form>
+        </div>
+    }

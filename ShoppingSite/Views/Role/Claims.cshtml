@@ -1,0 +1,30 @@
+﻿@model RoleClaimsViewModel
+
+@{
+    ViewData["Title"] = "دسترسی ها";
+}
+
+<form asp-route-Id="@Model.Id" asp-action="EditClaims" method="post">
+    <div class="card">
+        <div class="card-header">
+            <h2>مدیریت دسترسی ها</h2>
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < Model.Claims.Count; i++)
+            {
+                <div class="form-check m-1">
+                    <input type="hidden" asp-for="@Model.Claims[i].ClaimType" />
+                    <input asp-for="@Model.Claims[i].Exist" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@Model.Claims[i].Exist">
+                        @Model.Claims[i].ClaimType
+                    </label>
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="ثبت" class="btn btn-primary" style="width: auto" />
+            <a asp-action="Edit" asp-route-Id-="@Model.Id" class="btn btn-primary" style="width: auto">لغو</a>
+        </div>
+    </div>
+</form>
