@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CategoryViewModel>
+
+@{
+    ViewData["Title"] = "دسته بندی ها";
+}
+
+@if (User.HasClaim(Claims.Add_Category, Claims.Add_Category))
+{
+    <a class="btn btn-primary mb-3" style="width: auto" asp-action="Add" asp-controller="category">افزودن دسته بندی جدید</a>
+}
+
+@if (Model.Any())
+{
+    foreach (var category in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                آیدی دسته : @category.Id
+            </div>
+            <div class="card-body">
+                <a asp-action="Search" asp-controller="Product" asp-route-catId="@category.Id" class="card-title">@category.Name</a>
+            </div>
+            <form asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" method="post" class="card-footer">
+                <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary">ویرایش</a>
+                <a asp-controller="Category" asp-action="Index" asp-route-id="@category.Id" class="btn btn-primary">جزئیات</a>
+                <span id="confirmDeleteSpan_@category.Id" style="display: none">
+                    <span>از حذف کردن این مورد اطمینان دارید؟</span>
+                    <button type="submit" class="btn btn-danger">بله</button>
+                    <a href="#" onclick="confirmDelete('@category.Id', false)" class="btn btn-primary">خیر</a>
+                </span>
+
+                <span id="deleteSpan_@category.Id">
+                    <a href="#" onclick="confirmDelete('@category.Id', true)" class="btn btn-danger">حذف</a>
+                </span>
+            </form>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            هیچ نقشی پیدا نشد
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary" style="width: auto" asp-controller="Home" asp-action="Index">برگشت به صفحه اصلی</a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

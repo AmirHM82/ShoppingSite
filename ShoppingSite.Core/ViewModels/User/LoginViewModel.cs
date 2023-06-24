@@ -10,7 +10,6 @@ namespace ShoppingSite.Core.ViewModels.User
     public class LoginViewModel
     {
         [Display(Name = "نام کاربری")]
-        [Phone]
         [Required(ErrorMessage = "نباید بدون مقدار باشد")]
         public string UserName { get; set; }
 

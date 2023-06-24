@@ -1,0 +1,148 @@
+.home-top-banner {
+    background: url(../Images/top-banner.jpg) center center no-repeat;
+    background-size: cover;
+    height: 60px;
+}
+
+.home-side-container {
+    width: 25%;
+    float: right;
+}
+
+.home-side-advertise {
+    background: url(../Images/Advertise-1.jpg) center center no-repeat;
+    background-size: cover;
+    height: 500px;
+}
+
+.home-content {
+    margin-right: 25%;
+    padding-right: 1rem;
+}
+
+.home-product-wrap {
+    background-color: #fff;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.home-section-title {
+    font-size: 1.7rem;
+    line-height: 3;
+    color: chocolate;
+}
+
+.home-product-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border-top: 1px solid chocolate;
+}
+
+.home-product-img-container {
+    width: 200px;
+    height: 200px;
+    padding: 1rem 1rem 50px 1rem;
+    margin-left: 1rem;
+    float: left;
+
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+}
+
+.home-product-img {
+    width: 100%;
+    height: 100%;
+
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+}
+
+.home-product-text-wrap {
+    margin-left: 220px;
+    margin-right: 1rem;
+    padding: 1rem 1rem 50px 1rem;
+    height: 200px;
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.home-product-text-line {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+.home-product-title {
+    display: inline-block;
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+.home-product-desc {
+    display: inline-block;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-right: 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.home-product-button {
+    position: absolute;
+    right: -1.5rem;
+    left: -1.5rem;
+    bottom: -40px;
+    z-index: -5;
+
+    opacity: 0;
+    font-size: 1.5rem;
+    text-decoration: none;
+    line-height: 2;
+    padding: 0.5rem 1rem;
+    background-color: chocolate;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+
+    -moz-border-bottom-right-radius: 0.5rem;
+    -webkit-border-bottom-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+
+    -moz-border-bottom-left-radius: 0.5rem;
+    -webkit-border-bottom-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+
+    -webkit-transition: 500ms all;
+    -moz-transition: 500ms all;
+    -ms-transition: 500ms all;
+    -o-transition: 500ms all;
+    transition: 500ms all;
+}
+
+.home-product-container:hover .home-product-button {
+    z-index: 10;
+    opacity: 1;
+    bottom: 0.5rem;
+}
+
+.home-product-button:hover {
+    background-color: transparent;
+    color: chocolate;
+}
+
+@media (max-width: 700px) {
+    .home-product-img-container {
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+        padding-bottom: 1rem;
+    }
+
+    .home-product-text-wrap {
+        margin-left: 1rem;
+    }
+}

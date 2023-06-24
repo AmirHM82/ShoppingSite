@@ -1,0 +1,219 @@
+.chart-visitors {
+	min-height: 18rem;
+}
+
+.chart-tasks {
+	height: 15rem;
+}
+
+.chart-donut,
+.chart-pie {
+	height: 21rem;
+}
+
+.chartsh {
+	height: 16rem;
+}
+
+.chartwidget {
+	height: 17rem;
+}
+
+.chartmorris {
+	height: 19rem;
+}
+
+.chart,
+.map {
+	position: relative;
+	padding-top: 56.25%;
+}
+
+.chart-square,
+.map-square {
+	padding-top: 100%;
+}
+
+.chart-content,
+.map-content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.map-header {
+	margin-bottom: 1.5rem;
+	height: 15rem;
+	position: relative;
+	margin-bottom: -1.5rem;
+	&:before {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 10rem;
+		background: linear-gradient(to bottom, rgba(245, 247, 251, 0) 5%, #e0e8f3 95%);
+		pointer-events: none;
+	}
+}
+
+.map-header-layer {
+	height: 100%;
+}
+
+.map-static {
+	height: 120px;
+	width: 100%;
+	max-width: 640px;
+	background-position: center center;
+	background-size: 640px 120px;
+}
+
+.chart-circle {
+	display: block;
+	height: 8rem;
+	width: 8rem;
+	position: relative;
+	margin: 0 auto;
+	canvas {
+		margin: 0 auto;
+		display: block;
+		max-width: 100%;
+		max-height: 100%;
+	}
+}
+
+.chart-circle-xs {
+	height: 2.5rem;
+	width: 2.5rem;
+	font-size: .8rem;
+}
+
+.chart-circle-xs1 {
+	height: 110px;
+	width: 110px;
+	font-size: .8rem;
+}
+
+.chart-circle-sm {
+	height: 4rem;
+	width: 4rem;
+	font-size: .8rem;
+}
+
+.chart-circle-lg {
+	height: 10rem;
+	width: 10rem;
+	font-size: .8rem;
+}
+
+.chart-circle-value {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	bottom: 0;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	line-height: 1;
+	small {
+		display: block;
+		color: #6987ab;
+		font-size: .9375rem;
+	}
+}
+
+.amcharts-chart-div a,
+.canvasjs-chart-container a {
+	display: none !important;
+}
+
+.amChartsLegend.amcharts-legend-div {
+	display: none;
+}
+
+.map-header1 {
+	margin-bottom: 1.5rem;
+	height: 23.2rem;
+	position: relative;
+	margin-bottom: -1.5rem;
+	border: 1px solid #e0e8f3;
+}
+
+@media (min-width: 992px) and (max-width: 1359px) {
+	.map-content-width {
+		width: 45%;
+	}
+	.map-width {
+		width: 55%;
+	}
+}
+
+@media (min-width: 1360px) {
+	.map-content-width {
+		width: 45%;
+	}
+	.map-width {
+		width: 55%;
+	}
+}
+
+.map-content-width {
+	.mCSB_inside>.mCSB_container {
+		margin-right: 0;
+	}
+	.mCSB_scrollTools {
+		.mCSB_dragger .mCSB_dragger_bar {
+			float: right;
+		}
+		.mCSB_draggerRail {
+			display: none !important;
+		}
+		.mCSB_dragger .mCSB_dragger_bar {
+			background: $black-3 !important;
+			&:hover {
+				background: $black-5 !important;
+			}
+		}
+	}
+}
+
+.mh-500 {
+	max-height: 500px;
+}
+
+@media (max-width: 992px) and (min-width: 767px) {
+	.map-width {
+		display: contents;
+	}
+}
+
+.map-absolute {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 30px;
+	border-bottom: 0 !important;
+}
+
+.map1 {
+	height: 100%;
+	position: relative;
+	margin-bottom: -1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.axgmap-height {
+	min-height: 90vh;
+}

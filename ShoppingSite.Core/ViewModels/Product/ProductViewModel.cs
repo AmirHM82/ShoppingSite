@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using ShoppingSite.Core.ViewModels.Category;
+using ShoppingSite.Core.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingSite.Core.ViewModels.Product
 {
-    public class ProductViewModel
+    public class ProductViewModel : BaseViewModel
     {
         [Display(Name = "کد محصول")]
         public int? Id { get; set; }
@@ -33,10 +35,10 @@ namespace ShoppingSite.Core.ViewModels.Product
         public IFormFile? Picture { get; set; }
 
         [Display(Name = "اسم تصویر")]
-        public string PictureName { get; set; }
+        public string? PictureName { get; set; }
 
         [Display(Name = "آدرس تصویر")]
-        public string PictureFullAddress { get; set; }
+        public string? PictureFullAddress { get; set; }
 
         [Display(Name = "دسته بندی ها")]
         public List<CategoryViewModel>? Categories { get; set; } = new();

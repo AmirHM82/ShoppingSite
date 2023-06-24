@@ -4,39 +4,44 @@
     ViewData["Title"] = "ثبت نام";
 }
 
-<h1>ساخت حساب</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Signup">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+<section class="sptb">
+    <div class="container customerpage">
+        <div class="row">
+            <div class="single-page">
+                <div class="col-lg-5 col-xl-4 col-md-6 d-block mx-auto">
+                    <div class="wrapper wrapper2">
+                        <form id="Register" class="card-body" tabindex="500" asp-action="Signup">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <h3>ثبت نام</h3>
+                            <div class="phone"> <input asp-for="Phone" /> <label asp-for="Phone"></label> </div>
+                            <div class="password"> <input asp-for="Password" /> <label asp-for="Password"></label> </div>
+                            <div class="confirmPassword"> <input asp-for="ConfirmPassword" /> <label asp-for="ConfirmPassword"></label> </div>
+                            <div class="submit"> <input type="submit" class="btn btn-primary btn-block" value="ثبت نام" /> </div>
+                            <p class="text-dark mb-0">اکانت دارید ؟<a asp-action="Signin" class="text-primary ml-1">ورود</a></p>
+                        </form>
+                        <hr class="divider">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <div class="btn-group">
+                                    <a href="https://www.facebook.com/" class="btn  ml-2 btn-icon brround"> <span class="fa fa-facebook"></span> </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="https://www.google.com/gmail/" class="btn  ml-2 btn-icon brround"> <span class="fa fa-google"></span> </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="https://twitter.com/" class="btn  btn-icon brround"> <span class="fa fa-twitter"></span> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="ساخت حساب" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Signin">ورود به حساب</a>
-</div>
+</section>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

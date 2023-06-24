@@ -1,0 +1,53 @@
+﻿@model CategoryViewModel
+
+@{
+    ViewData["Title"] = "ویرایش دسته";
+}
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12">
+        <form asp-action="Edit" enctype="multipart/form-data" method="post" class="card mb-0">
+            <div class="card-header">
+                <h3 class="card-title">ایجاد دسته</h3>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" readonly class="form-control" />
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" type="text" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label asp-for="Categories" class="form-label"></label>
+                            <select asp-for="Categories"
+                                    class="form-control select2-show-search border-bottom-0 w-100 select2-show-search select2-hidden-accessible"
+                                    asp-items="@(new SelectList(Model.Categories))">
+                                <option>انتخاب کنید</option>
+                            </select>
+                            <span asp-validation-for="Categories" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">ثبت</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

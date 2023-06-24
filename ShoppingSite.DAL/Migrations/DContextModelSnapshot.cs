@@ -167,14 +167,40 @@ namespace ShoppingSite.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int?>("ParentCategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("ShoppingSite.DAL.Entities.MetaTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ViewPageId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ViewPageId");
+
+                    b.ToTable("MetaTags");
                 });
 
             modelBuilder.Entity("ShoppingSite.DAL.Entities.Product", b =>
@@ -187,6 +213,9 @@ namespace ShoppingSite.DAL.Migrations
 
                     b.Property<string>("AdderId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -219,6 +248,8 @@ namespace ShoppingSite.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdderId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -291,6 +322,23 @@ namespace ShoppingSite.DAL.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("ShoppingSite.DAL.Entities.ViewPage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ViewPages");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -344,25 +392,55 @@ namespace ShoppingSite.DAL.Migrations
 
             modelBuilder.Entity("ShoppingSite.DAL.Entities.Category", b =>
                 {
-                    b.HasOne("ShoppingSite.DAL.Entities.Product", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("ProductId")
+                    b.HasOne("ShoppingSite.DAL.Entities.Category", "ParentCategory")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("ParentCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ParentCategory");
+                });
+
+            modelBuilder.Entity("ShoppingSite.DAL.Entities.MetaTag", b =>
+                {
+                    b.HasOne("ShoppingSite.DAL.Entities.ViewPage", null)
+                        .WithMany("Tags")
+                        .HasForeignKey("ViewPageId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ShoppingSite.DAL.Entities.Product", b =>
                 {
                     b.HasOne("ShoppingSite.DAL.Entities.User", "Adder")
-                        .WithMany()
+                        .WithMany("Cart")
                         .HasForeignKey("AdderId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("ShoppingSite.DAL.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Adder");
+
+                    b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("ShoppingSite.DAL.Entities.Product", b =>
+            modelBuilder.Entity("ShoppingSite.DAL.Entities.Category", b =>
                 {
-                    b.Navigation("Categories");
+                    b.Navigation("Products");
+
+                    b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("ShoppingSite.DAL.Entities.User", b =>
+                {
+                    b.Navigation("Cart");
+                });
+
+            modelBuilder.Entity("ShoppingSite.DAL.Entities.ViewPage", b =>
+                {
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

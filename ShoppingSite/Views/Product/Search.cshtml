@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ProductViewModel>
+
+@{
+    ViewData["Title"] = "نتایج جستجوی محصولات";
+}
+
+@if (User.HasClaim(Claims.Add_Product, Claims.Add_Product))
+{
+    <a class="btn btn-primary mb-3" style="width: auto" asp-action="Add" asp-controller="Product">افزودن محصول</a>
+}
+
+@if (Model.Any())
+{
+    foreach (var product in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                آیدی محصول : @product.Id
+            </div>
+            <div class="card-body">
+                <h5 class="card-subtitle">@product.Title</h5>
+                <div class="card-title">
+                    <img src="~/img/products/@product.PictureName" alt="تصویری یافت نشد" width="200" height="80" class="img-responsive" style="margin: auto;" />
+                </div>
+            </div>
+            <div class="card-footer">
+                <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id" class="btn btn-primary">جزئیات</a>
+                <a asp-controller="Product" asp-action="AddCart" asp-route-id="@product.Id" class="btn btn-primary">افزودن به سبد خرید</a>
+
+                @if (User.HasClaim(Claims.Edit_Product, Claims.Edit_Product))
+                {
+                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">ویرایش</a>
+                }
+                @if (User.HasClaim(Claims.Delete_Product, Claims.Delete_Product))
+                {
+                    <form asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" asp-route-page="@ViewBag.Page" method="post" class="btn">
+                        <span id="confirmDeleteSpan_@product.Id" style="display: none">
+                            <span>از حذف کردن این مورد اطمینان دارید؟</span>
+                            <input type="submit" value="بله" class="btn btn-danger" />
+                            <a href="#" onclick="confirmDelete('@product.Id', false)" class="btn btn-primary">خیر</a>
+                        </span>
+
+                        <span id="deleteSpan_@product.Id">
+                            <a href="#" onclick="confirmDelete('@product.Id', true)" class="btn btn-danger">حذف</a>
+                        </span>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+    @if ((int)ViewBag.TotalPages != (int)ViewBag.Page)
+    {
+        <a asp-controller="Product" asp-action="List" asp-route-page="@((int)ViewBag.Page + 1)" class="btn btn-primary">صفحه بعد</a>
+    }
+    @if ((int)ViewBag.Page is not 1)
+    {
+        <a asp-controller="Product" asp-action="List" asp-route-page="@((int)ViewBag.Page - 1)" class="btn btn-primary">صفحه قبل</a>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            هیچ محصولی پیدا نشد
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary" style="width: auto" asp-controller="Home" asp-action="Index">برگشت به صفحه اصلی</a>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

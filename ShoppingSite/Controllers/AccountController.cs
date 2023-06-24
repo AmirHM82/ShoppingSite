@@ -7,27 +7,32 @@ using ShoppingSite.DAL.Entities;
 
 namespace ShoppingSite.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController<AccountController>
     {
-        private readonly UserModerator userModerator;
-        private readonly UserRolesModerator userRolesModerator;
+        //private readonly UserModerator UserModerator;
+        //private readonly UserRolesModerator userRolesModerator;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
+        //public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
+        //{
+        //    UserModerator = new(userManager, signInManager, ModelState);
+        //    userRolesModerator = new(ref userManager, ref roleManager, ModelState);
+        //}
+
+        public AccountController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            userModerator = new(ref userManager, ref signInManager, ModelState);
-            userRolesModerator = new(ref userManager, ref roleManager, ModelState);
+
         }
 
         [AcceptVerbs("Get", "Post")] //= [HttpPost][HttpGet]
         public async Task<IActionResult> IsPhoneInUse(string phone)
         {
-            return await userModerator.IsPhoneInUse(phone);
+            return await UserModerator.IsPhoneInUse(phone);
         }
 
         [AcceptVerbs("Get", "Post")] //= [HttpPost][HttpGet]
         public async Task<IActionResult> IsEmailInUse(string email)
         {
-            return await userModerator.IsEmailInUse(email);
+            return await UserModerator.IsEmailInUse(email);
         }
 
         [HttpGet]
@@ -39,7 +44,7 @@ namespace ShoppingSite.Controllers
         [HttpPost]
         public async Task<IActionResult> Signup(RegisterViewModel viewModel, string? returnUrl)
         {
-            return await userModerator.SignupAsync(viewModel, returnUrl);
+            return await UserModerator.SignupAsync(viewModel, returnUrl);
         }
 
         [HttpGet]
@@ -49,15 +54,15 @@ namespace ShoppingSite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Signin(LoginViewModel viewModel, string? returnUrl)
+        public async Task<IActionResult> Signin(LoginViewModel viewModel/*, string? returnUrl*/)
         {
-            return await userModerator.SigninAsync(viewModel, returnUrl);
+            return await UserModerator.SigninAsync(viewModel/*, returnUrl*/);
         }
 
-        [HttpPost]
+        //[HttpPost]
         public async Task<IActionResult> Signout()
         {
-            return await userModerator.SignoutAsync();
+            return await UserModerator.SignoutAsync();
         }
 
         [HttpGet]
@@ -70,21 +75,21 @@ namespace ShoppingSite.Controllers
         [Authorize(Policy = "SearchAccountPolicy")]
         public async Task<IActionResult> Search(string query)
         {
-            return await userModerator.SearchAsync(query);
+            return await UserModerator.SearchAsync(query);
         }
 
         [HttpGet]
         [Authorize(Policy = "EditAccountPolicy")]
         public async Task<IActionResult> Edit(string userId)
         {
-            return await userModerator.EditAsync(userId);
+            return await UserModerator.EditAsync(userId ?? UserId);
         }
 
         [HttpPost]
         [Authorize(Policy = "EditAccountPolicy")]
         public async Task<IActionResult> Edit(UserEditViewModel viewModel, string? returnUrl)
         {
-            return await userModerator.EditAsync(viewModel, returnUrl);
+            return await UserModerator.EditAsync(viewModel, returnUrl);
         }
 
         //The part bellow is untested
@@ -93,14 +98,14 @@ namespace ShoppingSite.Controllers
         [Authorize(Policy = "EditAccountRolesPolicy")]
         public async Task<IActionResult> EditRoles(string userId)
         {
-            return await userRolesModerator.FindRoles(userId);
+            return await UserRolesModerator.FindRoles(userId);
         }
 
         [HttpPost]
         [Authorize(Policy = "EditAccountRolesPolicy")]
         public async Task<IActionResult> EditRoles(UserRolesViewModel viewModel, string? returnUrl)
         {
-            return await userRolesModerator.EditRoles(viewModel);
+            return await UserRolesModerator.EditRoles(viewModel);
         }
     }
 }

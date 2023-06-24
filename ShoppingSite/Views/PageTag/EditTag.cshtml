@@ -1,0 +1,28 @@
+﻿@model MetaTagViewModel
+
+@{
+    ViewData["Title"] = "ویرایش تگ";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditTag" asp-route-url="@ViewBag.Url" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" class="form-control" hidden readonly />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ثبت" class="btn btn-primary" />
+            </div>
+        </form>
+        <a asp-controller="PageTag" asp-action="Index" asp-route-url="@ViewBag.Url" class="btn btn-primary">رفتن به جزئیات</a>
+    </div>
+</div>

@@ -23,7 +23,7 @@ namespace ShoppingSite.Core.Moderators
         public RoleManager<IdentityRole> RoleManager { get; }
         public ModelStateDictionary ModelState { get; }
 
-        public RoleModerator(ref RoleManager<IdentityRole> roleManager, ModelStateDictionary modelState)
+        public RoleModerator(RoleManager<IdentityRole> roleManager, ModelStateDictionary modelState)
         {
             RoleManager = roleManager;
             ModelState = modelState;
@@ -140,7 +140,7 @@ namespace ShoppingSite.Core.Moderators
             foreach (var viewModel in claimViewModels)
             {
                 if (viewModel.Exist)
-                    results.Enqueue(await RoleManager.AddClaimAsync(role, new(viewModel.ClaimType, "True")));
+                    results.Enqueue(await RoleManager.AddClaimAsync(role, new(viewModel.ClaimType, viewModel.ClaimType)));
             }
 
             RecievedResult.Invoke(results.Adapt<List<Result>>(), ref returnView);
@@ -176,7 +176,7 @@ namespace ShoppingSite.Core.Moderators
 
             var viewModel = new RoleClaimsViewModel() { Id = roleId };
 
-            foreach (var theClaim in Claims.Get())
+            foreach (var theClaim in Claims.GetClaims())
             {
                 viewModel.Claims.Add(new ClaimViewModel()
                 {

@@ -5,22 +5,16 @@ using System.Diagnostics;
 
 namespace ShoppingSite.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController<HomeController>
     {
-        private readonly ILogger<HomeController> _logger;
-        protected IProduct productService;
-        protected ProductModerator moderator;
-
-        public HomeController(ILogger<HomeController> logger, IProduct productService)
+        public HomeController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            _logger = logger;
-            this.productService = productService;
-            moderator = new ProductModerator(productService, ModelState);
+            
         }
 
         public async Task<IActionResult> Index()
         {
-            return await moderator.GetProducts(1);
+            return await ProductModerator.GetProducts(1);
         }
 
         public IActionResult Privacy()

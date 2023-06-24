@@ -23,19 +23,21 @@ namespace ShoppingSite.Core.Moderators
             ModelState = modelState;
         }
 
-        private void ControllPage(ref int page)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A list of products</returns>
+        public async Task<IActionResult> GetProducts(int page)
         {
             if (page < 1)
                 page = 1;
-        }
 
-        public async Task<IActionResult> GetProducts(int page)
-        {
-            ControllPage(ref page);
+            ViewBag.Page = page;
+            ViewBag.TotalPages = await productService.CountPages();
 
             var products = await productService.GetAsync(page);
 
-            //The Adapt is from Mapster and it does object tp object conveersion (I converted model to view model here)
+            //The Adapt is from Mapster and it does object to object conversion (I converted model to view model here)
             return View(products.Adapt<IEnumerable<ProductViewModel>>());
         }
 
@@ -44,6 +46,11 @@ namespace ShoppingSite.Core.Moderators
             var product = await productService.FindAsync(productId);
             return View(product.Adapt<ProductViewModel>());
         }
+
+        //public async Task<IActionResult> Add()
+        //{
+        //    var categories = await //Wait, this is not good
+        //}
 
         public async Task<IActionResult> Add(ProductViewModel viewModel)
         {
@@ -111,9 +118,10 @@ namespace ShoppingSite.Core.Moderators
             return View("Index", viewModel);
         }
 
-        public async Task<IActionResult> Delete(int Id, int Page)
+        public async Task<IActionResult> Delete(int Id, int page)
         {
-            ControllPage(ref Page);
+            if (page < 1)
+                page = 1;
 
             var product = await productService.Remove(Id);
 
@@ -125,8 +133,13 @@ namespace ShoppingSite.Core.Moderators
                 await productService.SaveAsync();
             }
 
-            return RedirectToAction("List", Page);
+            return RedirectToAction("List", new { page = page });
         }
 
+        public async Task<IActionResult> Search(string text)
+        {
+            var result = await productService.SearchAsync(text);
+            return View(result.Adapt<IEnumerable<ProductViewModel>>());
+        }
     }
 }

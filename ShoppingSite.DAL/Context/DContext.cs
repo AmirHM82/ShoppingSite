@@ -19,6 +19,9 @@ namespace ShoppingSite.DAL.Context
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        //public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<MetaTag> MetaTags { get; set; }
+        public DbSet<ViewPage> ViewPages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

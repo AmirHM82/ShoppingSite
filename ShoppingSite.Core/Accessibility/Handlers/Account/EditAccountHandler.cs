@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using ShoppingSite.Core.Accessibility.Requirements.Account;
+using ShoppingSite.Core.Holders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace ShoppingSite.Core.Accessibility.Handlers.Account
             var userIdBeingEdited = authFilterContext.Request.Query["userId"];
 
             if (loggedInUserId is not null)
-                if (context.User.HasClaim("Edit User", "True") || loggedInUserId == userIdBeingEdited)
+                if (context.User.HasClaim(Claims.Edit_User, Claims.Edit_User) || loggedInUserId == userIdBeingEdited)
                     context.Succeed(requirement);
 
             return Task.CompletedTask;

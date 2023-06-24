@@ -1,0 +1,35 @@
+.icons-list {
+	list-style: none;
+	padding: 0;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	border-top: 1px solid #e0e8f3;
+	border-left: 1px solid #e0e8f3;
+	>li {
+		-ms-flex: 1 0 4rem;
+		flex: 1 0 4rem;
+	}
+}
+
+.icons-list-wrap {
+	overflow: hidden;
+}
+
+.icons-list-item {
+	text-align: center;
+	height: 4rem;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	border-right: 1px solid #e0e8f3;
+	border-bottom: 1px solid #e0e8f3;
+	i {
+		font-size: 1.25rem;
+		color: #676a80;
+	}
+}

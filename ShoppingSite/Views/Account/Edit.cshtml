@@ -4,53 +4,106 @@
     ViewData["Title"] = "ویرایش حساب";
 }
 
-<h1>Edit</h1>
-
-<h4>ویرایش اطلاعات حساب</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="Id" class="form-control" hidden />
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+<section class="sptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">دسترسی ها</h3>
+                    </div>
+                    <div class="item1-links  mb-0">
+                        <a href="orders.html" class="d-flex  border-bottom"> <span class="icon1 ml-3"><i class="icon icon-basket"></i></span> سفارشات</a>
+                    </div>
+                </div>
+                <div class="card my-select">
+                    <div class="card-header">
+                        <h3 class="card-title">جستجوی دروس</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group"> <input type="text" class="form-control" id="text" placeholder="دنبال چی میگردی؟"> </div>
+                        <div class="form-group">
+                            <select name="country" id="select-countries" class="form-control custom-select select2-show-search select2-hidden-accessible" data-select2-id="select-countries" tabindex="-1" aria-hidden="true"><option value="1" selected="selected" data-select2-id="2">All Categories</option> <option value="2" data-select2-id="9">Web Security</option> <option value="3" data-select2-id="10">Offline</option> <option value="4" data-select2-id="11">Business</option> <option value="5" data-select2-id="12">Online</option> <option value="6" data-select2-id="13">Data Science</option> <option value="7" data-select2-id="14">Driving</option> <option value="8" data-select2-id="15">Education</option> <option value="9" data-select2-id="16">Electronics</option> <option value="10" data-select2-id="17">Pets &amp; Offline</option> <option value="11" data-select2-id="18">Computer</option> <option value="12" data-select2-id="19">Mobile</option> <option value="13" data-select2-id="20">Events</option> <option value="14" data-select2-id="21">Python</option> <option value="15" data-select2-id="22">Security Hacking</option> </select>
+                            <span class="select2 select2-container select2-container--default" dir="rtl" data-select2-id="23" style="width: 100%;">
+                                <span class="selection">
+                                    <span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-select-countries-container">
+                                        <span class="select2-selection__rendered" id="select2-select-countries-container" role="textbox" aria-readonly="true" title="All Categories">All Categories</span>
+                                        <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                                    </span>
+                                </span><span class="dropdown-wrapper" aria-hidden="true"></span>
+                            </span>
+                        </div>
+                        <div class=""> <a href="#" class="btn  btn-primary">جستجو</a> </div>
+                    </div>
+                </div>
+                <div class="card mb-xl-0">
+                    <div class="card-header">
+                        <h3 class="card-title">توصیه های حریم خصوصی</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled widget-spec  mb-0">
+                            <li class=""> <i class="fa fa-check text-success" aria-hidden="true"></i>نظرات مشتریان را بخوانید</li>
+                            <li class=""> <i class="fa fa-check text-success" aria-hidden="true"></i>قبل از خرید معرفی دوره را ببینید</li>
+                            <li class=""> <i class="fa fa-check text-success" aria-hidden="true"></i>بعد از اطمینان خرید کنید</li>
+                            <li class="ml-5 mb-0"> <a href="tips.html">دیدن همه ...</a> </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <div class="col-xl-9 col-lg-12 col-md-12">
+                <form class="card mb-0" asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div> @*It doesnt show the error about space in username!*@
+                    <div class="card-header">
+                        <h3 class="card-title">ویرایش پروفایل</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input asp-for="Id" class="form-control" hidden />
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="UserName" class="form-label"></label>
+                                    <input asp-for="UserName" type="text" class="form-control" placeholder="UserName">
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Email" class="form-label"></label>
+                                    <input asp-for="Email" type="email" class="form-control" placeholder="Email">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="PhoneNumber" class="form-label"></label>
+                                    <input asp-for="PhoneNumber" type="number" class="form-control" placeholder="Number">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="Address" class="form-label"></label>
+                                    <input asp-for="Address" type="text" class="form-control" placeholder="Home Address">
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="PhoneNumberConfirmed" class="form-label"></label>
+                                    <input class="form-control" asp-for="PhoneNumberConfirmed" /> @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="EmailConfirmed" class="form-label"></label>
+                                    <input class="form-control" asp-for="EmailConfirmed" /> @Html.DisplayNameFor(model => model.EmailConfirmed)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer"> <button type="submit" class="btn btn-primary">بروزرسانی پروفایل</button> </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="PhoneNumberConfirmed" /> @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="EmailConfirmed" /> @Html.DisplayNameFor(model => model.EmailConfirmed)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="ذخیره" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+</section>

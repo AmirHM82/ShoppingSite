@@ -17,7 +17,7 @@ namespace ShoppingSite.DAL.Entities
         public int Price { get; set; }
         public int? Discount { get; set; }
         public string Description { get; set; }
-        public virtual IEnumerable<Category> Categories { get; set; }
+        public Category Category { get; set; }
         public bool IsHidden { get; set; }
         public bool IsInRecyclebin { get; set; }
         public User Adder { get; set; }

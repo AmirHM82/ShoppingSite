@@ -1,20 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShoppingSite.Core.Interfaces;
 using ShoppingSite.Core.ViewModels.Product;
-using ShoppingSite.Core.Moderators;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ShoppingSite.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController<ProductController>
     {
-        protected IProduct productService;
-        protected ProductModerator moderator;
-
-        public ProductController(IProduct productService)
+        public ProductController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            this.productService = productService;
-            moderator = new ProductModerator(productService, ModelState);
         }
 
         [HttpGet]
@@ -28,21 +22,21 @@ namespace ShoppingSite.Controllers
         [Authorize(Policy = "AddProductPolicy")]
         public async Task<IActionResult> Add(ProductViewModel viewModel)
         {
-            return await moderator.Add(viewModel);
+            return await ProductModerator.Add(viewModel);
         }
 
         [HttpGet]
         [Authorize(Policy = "EditProductPolicy")]
-        public async Task<IActionResult> Edit(int Id)
+        public async Task<IActionResult> Edit(int id)
         {
-            return await moderator.GetProduct(Id);
+            return await ProductModerator.GetProduct(id);
         }
 
         [HttpPost]
         [Authorize(Policy = "EditProductPolicy")]
         public async Task<IActionResult> Edit(ProductViewModel viewModel)
         {
-            return await moderator.Edit(viewModel);
+            return await ProductModerator.Edit(viewModel);
         }
 
         [HttpPost]
@@ -53,29 +47,36 @@ namespace ShoppingSite.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "IndexProductPolicy")]
-        public async Task<IActionResult> Index(int Id)
+        //[Authorize(Policy = "IndexProductPolicy")]
+        public async Task<IActionResult> Index(int id)
         {
-            return await moderator.GetProduct(Id);
+            return await ProductModerator.GetProduct(id);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize(Policy = "DeleteProductPolicy")]
-        public async Task<IActionResult> Delete(int Id, int Page) //Page is 0 (Which is actually null)
+        public async Task<IActionResult> Delete(int id, int page)
         {
-            return await moderator.Delete(Id, Page);
+            return await ProductModerator.Delete(id, page);
         }
 
-        [Authorize(Policy = "ProductListPolicy")]
+        //[Authorize(Policy = "ProductListPolicy")]
         public async Task<IActionResult> List(int page)
         {
-            return await moderator.GetProducts(page);
+            return await ProductModerator.GetProducts(page);
         }
 
-        [Authorize(Policy = "ManageProductsPolicy")]
-        public async Task<IActionResult> Manage(int page)
+        //[Authorize(Policy = "ManageProductsPolicy")]
+        //public async Task<IActionResult> Manage(int page)
+        //{
+        //    return await ProductModerator.GetProducts(page);
+        //}
+
+        [HttpGet]
+        //[Authorize(Policy = "SearchProductPolicy")]
+        public async Task<IActionResult> Search(string text)
         {
-            return await moderator.GetProducts(page);
+            return await ProductModerator.Search(text);
         }
     }
 }

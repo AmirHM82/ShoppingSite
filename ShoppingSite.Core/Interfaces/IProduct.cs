@@ -18,5 +18,7 @@ namespace ShoppingSite.Core.Interfaces
         Task SaveAsync();
         void Remove(Product product);
         Task<Product> Remove(int id);
+        Task<int> CountProducts();
+        Task<int> CountPages();
     }
 }

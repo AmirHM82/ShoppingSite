@@ -21,7 +21,8 @@ namespace ShoppingSite.Core.Moderators
         public SignInManager<User> SignInManager { get; }
         public ModelStateDictionary ModelState { get; }
 
-        public UserModerator(ref UserManager<User> userManager, ref SignInManager<User> signInManager, ModelStateDictionary modelState)
+        //Why userManager & signInManager were ref 'd here?!
+        public UserModerator(UserManager<User> userManager, SignInManager<User> signInManager, ModelStateDictionary modelState)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -70,9 +71,9 @@ namespace ShoppingSite.Core.Moderators
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        public async Task<IActionResult> SigninAsync(LoginViewModel viewModel, string? returnUrl)
+        public async Task<IActionResult> SigninAsync(LoginViewModel viewModel/*, string? returnUrl*/)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) //Why it is not valid
                 return View(viewModel);
 
             //Method 1:
@@ -102,8 +103,8 @@ namespace ShoppingSite.Core.Moderators
                 return View(viewModel);
             }
 
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                return LocalRedirect(returnUrl);
+            //if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            //    return LocalRedirect(returnUrl);
 
             return RedirectToAction("Index", "Home");
         }
@@ -131,13 +132,9 @@ namespace ShoppingSite.Core.Moderators
         /// <summary>
         /// This is for get requests
         /// </summary>
-        /// <param name="userId">Id of the user</param>
         /// <returns>An user viewModel</returns>
         public async Task<IActionResult> EditAsync(string userId)
         {
-            if (!ModelState.IsValid)
-                return View();
-
             var user = await UserManager.FindByIdAsync(userId);
 
             return View(user.Adapt<UserEditViewModel>());
@@ -172,7 +169,7 @@ namespace ShoppingSite.Core.Moderators
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 return LocalRedirect(returnUrl);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Edit", new { userId = user.Id });
         }
 
         public async Task<IActionResult> IsEmailInUse(string email)
@@ -193,6 +190,11 @@ namespace ShoppingSite.Core.Moderators
                 return Json(true);
             else
                 return Json($"{phone} در سایت ثبت شده است لطفا شماره دیگری وارد کنید");
+        }
+
+        public Task<User> FindUserByNameAsync(string username)
+        {
+            return UserManager.FindByNameAsync(username);
         }
     }
 }

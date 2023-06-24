@@ -1,48 +1,65 @@
-﻿@model IEnumerable<ProductViewModel>
+﻿@inject SignInManager<User> signInManager;
+@model IEnumerable<ProductViewModel>
 
 @{
     ViewData["Title"] = "صفحه اصلی";
 }
 
-<div class="content table-responsive table-full-width">
-    <table class="table table-hover table-striped">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th class="hidden-xs">
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th class="hidden-xs">
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                @*This part is for admins*@
-                @*<th>
-                    عملیات
-                </th>*@
-            </tr>
-        </thead>
-        <tbody>
 
-            @foreach (var item in Model)
+<div class="section-title center-block text-center">
+    <h2>محصولات</h2>
+    <span class="sectiontitle-design">
+        <span class="icons"></span>
+    </span>
+    @*<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از </p>*@
+</div>
+<div id="defaultCarousel" class="owl-carousel Card-owlcarousel owl-carousel-icons owl-rtl owl-loaded owl-drag">
+    <div class="owl-stage-outer">
+        <div class="owl-stage" style="transform: translate3d(2002px, 0px, 0px); transition: all 0.25s ease 0s; width: 4804px;">
+            @foreach (var product in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td class="hidden-xs">
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td class="hidden-xs">
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    @*<td>
-                        
-                    </td>*@
-                </tr>
+                <div class="owl-item cloned" style="width: 375.333px; margin-left: 25px;">
+                    <div class="item">
+                        <div class="card mb-0">
+                            <div class="item7-card-img">
+                                <a asp-controller="Product" asp-action="Index" asp-route-id="@product.Id"></a>
+                                <img alt="@product.Title" src="~/img/products/@product.PictureName" class="cover-image" />
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="item7-card-desc d-flex mb-2">
+                                    <a href="#"><i class="fa fa-calendar-o ml-2"></i>Dec-03-2018</a>
+                                    <div class="mr-auto"><a href="#"><i class="fa fa-comment-o ml-2"></i>4 نظر</a></div>
+                                </div>
+                                <a href="blog-details.html" class="text-dark">
+                                    <h3 class="font-weight-semibold">مزیت های کار گروهی</h3>
+                                </a>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و </p>
+                                <div class="d-flex align-items-center pt-2 mt-auto">
+                                    <img src="../assets/images/users/male/15.jpg" class="avatar brround avatar-md ml-3" alt="avatar-img">
+                                    <div><a href="profile.html" class="text-default">Royal Hamblin</a><small class="d-block text-muted">10  روز پیش</small></div>
+                                    <div class="mr-auto text-muted">
+                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3">
+                                            <i class="fe fe-heart mr-1"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" class="icon d-none d-md-inline-block ml-3">
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
-
-        </tbody>
-    </table>
+        </div>
+    </div>
+    <div class="owl-nav">
+        <button type="button" role="presentation" class="owl-prev">
+            <span aria-label="Previous">‹</span>
+        </button>
+        <button type="button" role="presentation" class="owl-next">
+            <span aria-label="Next">›</span>
+        </button>
+    </div>
+    <div class="owl-dots disabled"></div>
 </div>

@@ -25,6 +25,17 @@ namespace ShoppingSite.Core.Services
             return context.Products.AddAsync(product);
         }
 
+        public async Task<int> CountPages()
+        {
+            var totalItems = await CountProducts();
+            return (int)Math.Ceiling((double)totalItems / 10);
+        }
+
+        public Task<int> CountProducts()
+        {
+            return context.Products.CountAsync();
+        }
+
         public Task<Product> FindAsync(int id)
         {
             return context.Products.FirstOrDefaultAsync(x => x.Id == id);

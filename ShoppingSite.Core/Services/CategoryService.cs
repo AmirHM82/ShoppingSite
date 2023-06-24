@@ -1,4 +1,7 @@
-﻿using ShoppingSite.Core.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using ShoppingSite.Core.Interfaces;
+using ShoppingSite.DAL.Context;
 using ShoppingSite.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,19 +13,42 @@ namespace ShoppingSite.Core.Services
 {
     public class CategoryService : ICategory
     {
-        public Task<Category> AddAsync(Category category)
+        private readonly DContext context;
+
+        public CategoryService(DContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
 
-        public Task<Category> FindAsync(Guid id)
+        public ValueTask<EntityEntry<Category>> AddAsync(Category category)
         {
-            throw new NotImplementedException();
+            return context.Categories.AddAsync(category);
+        }
+
+        public void Delete(int id)
+        {
+            //Test it
+            context.Categories.Remove(new Category { Id = id });
+        }
+
+        public Task<Category?> FindAsync(int id)
+        {
+            return context.Categories.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public Task<List<Category>> FindAsync(List<string> names)
+        {
+            return context.Categories.Where(x => names.Any(a => x.Name == a)).ToListAsync();
+        }
+
+        public Task<List<Category>> GetAll()
+        {
+            return context.Categories.ToListAsync();
         }
 
         public Task SaveAsync()
         {
-            throw new NotImplementedException();
+            return context.SaveChangesAsync();
         }
 
         public Task<List<Category>> SearchAsync(string query)
@@ -30,9 +56,9 @@ namespace ShoppingSite.Core.Services
             throw new NotImplementedException();
         }
 
-        public Task<Category> UpdateAsync(Category category)
+        public void UpdateAsync(Category category)
         {
-            throw new NotImplementedException();
+            context.Categories.Update(category);
         }
     }
 }

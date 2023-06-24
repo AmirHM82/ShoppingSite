@@ -4,36 +4,60 @@
     ViewData["Title"] = "جستجوی کاربر";
 }
 
-<h1>جستجوی کاربر</h1>
-<form asp-action="Search" asp-controller="Account" method="get" class="mb-3">
-    <input type="text" asp-for="Query" />
-    <input type="submit" value="جستجو" />
-</form>
-
-@if (Model is not null)
-    @foreach (var user in Model.Users)
-    {
-        <div class="card mb-3">
-            <div class="card-header">
-                نام کاربر : @user.UserName
+<section>
+    <div class="sptb-tab">
+        <div class="header-text mb-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-10 col-lg-12 col-md-12 d-block mx-auto">
+                        <div class="search-background bg-transparent">
+                            <form class="form row no-gutters" asp-action="Search" asp-controller="Account" method="get">
+                                <div class="form-group  col-xl-10 col-lg-10 col-md-12 mb-0 bg-white">
+                                    <input asp-for="Query" type="text" class="form-control input-lg br-tr-md-0 br-br-md-0" placeholder="جسنجوی کاربر" />
+                                </div>
+                                <div class="col-xl-2 col-lg-2 col-md-12 mb-0">
+                                    <input type="submit" class="btn btn-lg btn-block btn-primary br-tl-md-0 br-bl-md-0" value="بگرد" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">موبایل : @user.PhoneNumber</h5>
-                <h6 class="card-subtitle">ایمیل : @user.Email</h6>
-            </div>
-            <form asp-controller="Account" asp-action="Delete" asp-route-userId="@user.Id" method="post" class="card-footer">
-                <a asp-controller="Account" asp-action="Edit" asp-route-userId="@user.Id" class="btn btn-primary">ویرایش</a>
-                <a asp-controller="Account" asp-action="EditRoles" asp-route-userId="@user.Id" class="btn btn-primary">ویرایش نقش ها</a>
-
-                <span id="confirmDeleteSpan_@user.Id" style="display: none">
-                    <span>از حذف کردن این مورد اطمینان دارید؟</span>
-                    <button type="submit" class="btn btn-danger">بله</button>
-                    <a href="#" onclick="confirmDelete('@user.Id', false)" class="btn btn-primary">خیر</a>
-                </span>
-
-                <span id="deleteSpan_@user.Id">
-                    <a href="#" onclick="confirmDelete('@user.Id', true)" class="btn btn-danger">حذف</a>
-                </span>
-            </form>
         </div>
-    }
+        <!-- /header-text -->
+    </div>
+</section>
+
+<section>
+    <div class="sptb">
+        @if (Model is not null)
+            @foreach (var user in Model.Users)
+            {
+                <div class="card mb-3">
+                    <div class="card-header">
+                        نام کاربر : @user.UserName
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">موبایل : @user.PhoneNumber</h5>
+                        <h6 class="card-subtitle">ایمیل : @user.Email</h6>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-controller="Account" asp-action="Edit" asp-route-userId="@user.Id" class="btn btn-primary">ویرایش</a>
+                        <a asp-controller="Account" asp-action="EditRoles" asp-route-userId="@user.Id" class="btn btn-primary">ویرایش نقش ها</a>
+
+                        <form asp-controller="Account" asp-action="Delete" asp-route-userId="@user.Id" method="post">
+                            <span id="confirmDeleteSpan_@user.Id" style="display: none">
+                                <span>از حذف کردن این مورد اطمینان دارید؟</span>
+                                <button type="submit" class="btn btn-danger">بله</button>
+                                <a href="#" onclick="confirmDelete('@user.Id', false)" class="btn btn-primary">خیر</a>
+                            </span>
+
+                            <span id="deleteSpan_@user.Id">
+                                <a href="#" onclick="confirmDelete('@user.Id', true)" class="btn btn-danger">حذف</a>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            }
+    </div>
+</section>

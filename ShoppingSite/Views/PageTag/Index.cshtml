@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MetaTagViewModel>
+
+@{
+    ViewData["Title"] = "مدیریت تگ ها";
+}
+
+<h4 class="card-title">لینک صفحه: @ViewBag.Url</h4>
+
+@if (Model is not null)
+{
+    foreach (var tag in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                آیدی تگ : @tag.Id
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@tag.Name</h5>
+                <h5 class="card-body">@tag.Content</h5>
+            </div>
+            <div class="card-footer">
+                <a asp-controller="PageTag" asp-action="RemoveTag" asp-route-tagId="@tag.Id" asp-route-url="@ViewBag.Url" class="btn btn-danger">حذف</a>
+                <a asp-controller="PageTag" asp-action="EditTag" asp-route-tagId="@tag.Id" asp-route-url="@ViewBag.Url" class="btn btn-primary">ویرایش</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            هیچ تگی پیدا نشد
+        </div>
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <a class="btn btn-primary" style="width: auto" asp-controller="PageTag" asp-action="AddTag" asp-route-url="@ViewBag.Url">افزودن تگ</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/site.js"></script>
+}

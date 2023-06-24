@@ -4,39 +4,55 @@
     ViewData["Title"] = "ورود به حساب";
 }
 
-<h1>ورود به حساب</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Signin">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+<section class="sptb">
+    <div class="container customerpage">
+        <div class="row">
+            <div class="single-page">
+                <div class="col-lg-5 col-xl-4 col-md-6 d-block mx-auto">
+                    <div class="wrapper wrapper2">
+                        <form id="login" class="card-body" tabindex="500" method="post" asp-action="Signin">
+                            <h3>ورود</h3>
+                            <div asp-validation-summary="All"></div>
+                            <div class="mail">
+                                <input asp-for="UserName"> <label asp-for="UserName"></label> <span asp-validation-for="UserName"></span>
+                            </div>
+                            <div class="passwd">
+                                <input asp-for="Password"> <label asp-for="Password"></label> <span asp-validation-for="Password"></span>
+                            </div>
+                            <div class="checkbox">
+                                <input asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                            </div>
+                            <div class="submit"> <input type="submit" class="btn btn-primary btn-block" value="ورود"> </div>
+                            <p class="mb-2"><a href="#">فراموشی رمز عبور</a></p>
+                            <p class="text-dark mb-0">ثبت نام نکرده اید ؟ <a asp-action="Signup" class="text-primary ml-1">ثبت نام </a></p>
+                        </form>
+                        <hr class="divider">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <div class="btn-group">
+                                    <a href="https://www.facebook.com/" class="btn  ml-2 btn-icon brround">
+                                        <span class="fa fa-facebook"></span>
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="https://www.google.com/gmail/" class="btn  ml-2 btn-icon brround">
+                                        <span class="fa fa-google"></span>
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="https://twitter.com/" class="btn  btn-icon brround"> <span class="fa fa-twitter"></span> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="ورود" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Signup">ساخت حساب</a>
-</div>
+</section>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

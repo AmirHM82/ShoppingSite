@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using ShoppingSite.Core.Accessibility.Requirements.Account;
+using ShoppingSite.Core.Holders;
 using ShoppingSite.DAL.Context;
 using ShoppingSite.DAL.Entities;
 using System;
@@ -16,24 +17,26 @@ namespace ShoppingSite.Core.Moderators.StartupModerators
     {
         public static void AddPolicies(this AuthorizationOptions options)
         {
-            options.AddPolicy("EditRoleClaimsPolicy", policy => policy.RequireClaim("Edit Role Claims"));
-            options.AddPolicy("CreateRolePolicy", policy => policy.RequireClaim("Create Role"));
-            options.AddPolicy("DeleteRolePolicy", policy => policy.RequireClaim("Delete Role"));
-            options.AddPolicy("EditRolePolicy", policy => policy.RequireClaim("Edit Role"));
-            options.AddPolicy("RolesListPolicy", policy => policy.RequireClaim("Roles List"));
+            options.AddPolicy("EditRoleClaimsPolicy", policy => policy.RequireClaim(Claims.Edit_Role_Claims));
+            options.AddPolicy("CreateRolePolicy", policy => policy.RequireClaim(Claims.Create_Role));
+            options.AddPolicy("DeleteRolePolicy", policy => policy.RequireClaim(Claims.Delete_Role));
+            options.AddPolicy("EditRolePolicy", policy => policy.RequireClaim(Claims.Edit_Role));
+            options.AddPolicy("RolesListPolicy", policy => policy.RequireClaim(Claims.Roles_List));
 
-            options.AddPolicy("EditAccountRolesPolicy", policy => policy.RequireClaim("Edit Account Roles"));
+            options.AddPolicy("EditAccountRolesPolicy", policy => policy.RequireClaim(Claims.Edit_Account_Roles));
 
-            options.AddPolicy("SearchAccountPolicy", policy => policy.RequireClaim("Search Account"));
+            options.AddPolicy("SearchAccountPolicy", policy => policy.RequireClaim(Claims.Search_Account));
 
-            options.AddPolicy("EditAccountPolicy", policy => policy.AddRequirements(new ManageAccountRequirement()));
+            options.AddPolicy("EditAccountPolicy", policy => policy.AddRequirements(new ManageAccountRequirement())); //I have to work on it (Admins with related claim and the user it self can edit)
 
-            options.AddPolicy("AddProductPolicy", policy => policy.RequireClaim("Add Product"));
-            options.AddPolicy("EditProductPolicy", policy => policy.RequireClaim("Edit Product"));
-            options.AddPolicy("DeleteProductPolicy", policy => policy.RequireClaim("Delete Product"));
-            options.AddPolicy("IndexProductPolicy", policy => policy.RequireClaim("Index Product"));
-            options.AddPolicy("ProductListPolicy", policy => policy.RequireClaim("Product List"));
-            options.AddPolicy("ManageProductsPolicy", policy => policy.RequireClaim("Manage Products"));
+            options.AddPolicy("AddProductPolicy", policy => policy.RequireClaim(Claims.Add_Product));
+            options.AddPolicy("EditProductPolicy", policy => policy.RequireClaim(Claims.Edit_Product));
+            options.AddPolicy("DeleteProductPolicy", policy => policy.RequireClaim(Claims.Delete_Product));
+
+            //They are gonna be public (Visitable without account
+            //options.AddPolicy("IndexProductPolicy", policy => policy.RequireClaim(Claims.Index_Product));
+            //options.AddPolicy("ProductListPolicy", policy => policy.RequireClaim(Claims.Product_List));
+            //options.AddPolicy("ManageProductsPolicy", policy => policy.RequireClaim(Claims.Manage_Products));
 
             /*
              * We need lots of policies here:

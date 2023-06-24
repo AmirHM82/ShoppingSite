@@ -7,14 +7,11 @@ using ShoppingSite.Core.ViewModels.Role;
 
 namespace ShoppingSite.Controllers
 {
-    public class RoleController : Controller
+    public class RoleController : BaseController<RoleController>
     {
-        private readonly RoleModerator roleModerator;
-
-        public RoleController(RoleManager<IdentityRole> roleManager)
+        public RoleController(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
         {
-            roleModerator = new(ref roleManager, ModelState);
-            roleModerator.RecievedResult += RoleModerator_RecievedResult;
+            RoleModerator.RecievedResult += RoleModerator_RecievedResult;
         }
 
         private void RoleModerator_RecievedResult(List<Core.Models.Operation.Result> results, ref IActionResult returnView)
@@ -32,8 +29,6 @@ namespace ShoppingSite.Controllers
                         returnView = View("Error");
                     }
                 }
-
-            //roleModerator.RecievedResult -= RoleModerator_RecievedResult;
         }
 
         [HttpGet]
@@ -47,35 +42,35 @@ namespace ShoppingSite.Controllers
         [Authorize(Policy = "CreateRolePolicy")]
         public async Task<IActionResult> Create(RoleViewModel roleViewModel)
         {
-            return await roleModerator.CreateAsync(roleViewModel);
+            return await RoleModerator.CreateAsync(roleViewModel);
         }
 
         [HttpGet]
         [Authorize(Policy = "RolesListPolicy")]
         public IActionResult List()
         {
-            return View(roleModerator.Roles);
+            return View(RoleModerator.Roles);
         }
 
         [HttpGet]
         [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> Edit(string Id)
         {
-            return await roleModerator.FindAsync(Id);
+            return await RoleModerator.FindAsync(Id);
         }
 
         [HttpPost]
         [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> Edit(RoleViewModel viewModel)
         {
-            return await roleModerator.EditAsync(viewModel);
+            return await RoleModerator.EditAsync(viewModel);
         }
 
         [HttpPost]
         [Authorize(Policy = "DeleteRolePolicy")]
         public async Task<IActionResult> Delete(string Id)
         {
-            return await roleModerator.DeleteAsync(Id);
+            return await RoleModerator.DeleteAsync(Id);
         }
 
         /// <param name="Id">Role Id</param>
@@ -83,15 +78,15 @@ namespace ShoppingSite.Controllers
         [Authorize(Policy = "EditRoleClaimsPolicy")]
         public async Task<IActionResult> Claims(string Id)
         {
-            return await roleModerator.GetClaimsAsync(Id);
+            return await RoleModerator.GetClaimsAsync(Id);
         }
 
         [HttpPost]
         [Authorize(Policy = "EditRoleClaimsPolicy")]
         public async Task<IActionResult> EditClaims(RoleClaimsViewModel viewModel)
         {
-            await roleModerator.RemoveAllClaimsAsync(viewModel.Id, null);
-            return await roleModerator.AddClaimsAsync(viewModel.Id, RedirectToAction("List"), viewModel.Claims); //Returns a not found page
+            await RoleModerator.RemoveAllClaimsAsync(viewModel.Id, null);
+            return await RoleModerator.AddClaimsAsync(viewModel.Id, RedirectToAction("List"), viewModel.Claims); //Returns a not found page
         }
     }
 }

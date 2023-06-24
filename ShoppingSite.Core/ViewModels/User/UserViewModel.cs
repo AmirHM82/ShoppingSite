@@ -12,7 +12,7 @@ namespace ShoppingSite.Core.ViewModels.User
         [Display(Name = "آیدی")]
         public string Id { get; set; }
 
-        [Display(Name = "نام")]
+        [Display(Name = "نام کاربری")]
         [MaxLength(20, ErrorMessage = "مقدار {0} نباید بیشتر از {1} باشد")]
         [Required]
         public string UserName { get; set; }

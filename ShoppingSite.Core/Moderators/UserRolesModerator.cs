@@ -19,7 +19,7 @@ namespace ShoppingSite.Core.Moderators
         public RoleManager<IdentityRole> RoleManager { get; }
         public ModelStateDictionary ModelState { get; }
 
-        public UserRolesModerator(ref UserManager<User> userManager, ref RoleManager<IdentityRole> roleManager, ModelStateDictionary modelState)
+        public UserRolesModerator(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ModelStateDictionary modelState)
         {
             UserManager = userManager;
             RoleManager = roleManager;
@@ -65,7 +65,7 @@ namespace ShoppingSite.Core.Moderators
                     await UserManager.RemoveFromRoleAsync(user, role.Name);
             }
 
-            return RedirectToAction("Edit", routeValues: viewModel.Id);
+            return RedirectToAction("EditRoles", new { userId = viewModel.Id });
         }
     }
 }

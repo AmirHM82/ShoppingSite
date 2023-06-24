@@ -1,0 +1,21 @@
+.about-us-wrap {
+    background-color: chocolate;
+    color: #fff;
+    line-height: 2;
+}
+
+.about-us-title {
+    text-align: center;
+    font-size: 2rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.about-us-description {
+    font-size: 1.5rem;
+
+    overflow: hidden;
+}
