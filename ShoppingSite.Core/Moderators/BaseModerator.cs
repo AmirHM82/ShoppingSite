@@ -112,7 +112,7 @@ namespace ShoppingSite.Core.Moderators
         //public override async void OnActionExecuting(ActionExecutingContext context)
         //{
         //    HttpContextAccessor.HttpContext.Items["MetaTags"] = ((await ViewPageService.FindAsync(context.HttpContext.Request.Path.Value))?.Tags)
-        //        .Adapt<ICollection<MetaTagViewModel>>(); //Fuck!
+        //        .Adapt<ICollection<MetaTagViewModel>>(); //Oh no!
         //    base.OnActionExecuting(context);
         //}
     }
